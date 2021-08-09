@@ -22,20 +22,31 @@ function App() {
       day: "Friday",
       reminder: false,
     },
-  ])
+  ]);
 
-  const deleteTask=(id)=>{
-    setTasks(tasks.filter((task)=>{return(
-      task.id !==id
-    )}))
-  }
+  const deleteTask = (id) => {
+    setTasks(
+      tasks.filter((task) => {
+        return task.id !== id;
+      })
+    );
+  };
 
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
   return (
     <div className="container">
       <Header />
-      {tasks.length>0? <Tasks tasks={tasks} onDelete={deleteTask} /> : "Add a task, please!" }
-
-      
+      {tasks.length > 0 ? (
+        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
+      ) : (
+        "Add a task, please!"
+      )}
     </div>
   );
 }
